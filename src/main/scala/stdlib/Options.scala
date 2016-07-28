@@ -16,10 +16,10 @@ object Options extends FlatSpec with Matchers with org.scalaexercises.definition
     */
   def conceptOptions(res0: Option[String], res1: Option[String]) {
     val someValue: Option[String] = Some("I am wrapped in something")
-    someValue should be(res0)
+    someValue should be(Some("I am wrapped in something"))
 
     val emptyValue: Option[String] = None
-    emptyValue should be(res1)
+    emptyValue should be(None)
   }
 
   /** Let's write a function that may or not give us a string, thus returning `Option[String]`:
@@ -36,11 +36,11 @@ object Options extends FlatSpec with Matchers with org.scalaexercises.definition
     val value1 = maybeItWillReturnSomething(true)
     val value2 = maybeItWillReturnSomething(false)
 
-    value1 getOrElse "No value" should be(res0)
-    value2 getOrElse "No value" should be(res1)
+    value1 getOrElse "No value" should be("Found value")
+    value2 getOrElse "No value" should be("No value")
     value2 getOrElse {
       "default function"
-    } should be(res2)
+    } should be("default function")
 
   }
 
@@ -50,8 +50,8 @@ object Options extends FlatSpec with Matchers with org.scalaexercises.definition
     val value1 = maybeItWillReturnSomething(true)
     val value2 = maybeItWillReturnSomething(false)
 
-    value1.isEmpty should be(res0)
-    value2.isEmpty should be(res1)
+    value1.isEmpty should be(false)
+    value2.isEmpty should be(true)
   }
 
   /** Option can also be used with pattern matching:
@@ -62,13 +62,13 @@ object Options extends FlatSpec with Matchers with org.scalaexercises.definition
       case Some(v) ⇒ v
       case None    ⇒ 0.0
     }
-    value should be(res0)
+    value should be(20.0)
     val noValue: Option[Double] = None
     val value1 = noValue match {
       case Some(v) ⇒ v
       case None    ⇒ 0.0
     }
-    value1 should be(res1)
+    value1 should be(0.0)
   }
 
   /** An alternative for pattern matching is performing collection style operations.
@@ -82,8 +82,8 @@ object Options extends FlatSpec with Matchers with org.scalaexercises.definition
     val result1 = number.map(_ * 1.5)
     val result2 = noNumber.map(_ * 1.5)
 
-    result1 should be(res0)
-    result2 should be(res1)
+    result1 should be(Some(4.5))
+    result2 should be(None)
 
     /** Note that the type of result1 is now Option[Double], thanks to the scala type inference. */
   }
@@ -96,8 +96,8 @@ object Options extends FlatSpec with Matchers with org.scalaexercises.definition
     val result1 = number.fold(0)(_ * 3)
     val result2 = noNumber.fold(0)(_ * 3)
 
-    result1 should be(res0)
-    result2 should be(res1)
+    result1 should be(9)
+    result2 should be(0)
   }
 
 }
