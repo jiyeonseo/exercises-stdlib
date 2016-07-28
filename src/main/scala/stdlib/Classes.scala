@@ -35,7 +35,7 @@ object Classes extends FlatSpec with Matchers with org.scalaexercises.definition
   def classWithValParameterClasses(res0: String) {
     class ClassWithValParameter(val name: String)
     val aClass = new ClassWithValParameter("Gandalf")
-    aClass.name should be(res0)
+    aClass.name should be("Gandalf")
   }
 
 }
