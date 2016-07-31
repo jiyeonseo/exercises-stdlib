@@ -27,8 +27,8 @@ object Tuples extends FlatSpec with Matchers with org.scalaexercises.definitions
     val fruit = tuple._1
     val animal = tuple._2
 
-    fruit should be(res0)
-    animal should be(res1)
+    fruit should be("apple")
+    animal should be("dog")
   }
 
   /** Tuples may be of mixed type:
@@ -36,8 +36,8 @@ object Tuples extends FlatSpec with Matchers with org.scalaexercises.definitions
   def mixedTypeTuples(res0: Int, res1: String) {
     val tuple5 = ("a", 1, 2.2, new Date(), "five")
 
-    tuple5._2 should be(res0)
-    tuple5._5 should be(res1)
+    tuple5._2 should be(1)
+    tuple5._5 should be("five")
   }
 
   /** You can assign multiple variables at once using tuples:
@@ -46,17 +46,17 @@ object Tuples extends FlatSpec with Matchers with org.scalaexercises.definitions
     val student = ("Sean Rogers", 21, 3.5)
     val (name, age, gpa) = student
 
-    name should be(res0)
-    age should be(res1)
-    gpa should be(res2)
+    name should be("Sean Rogers")
+    age should be(21)
+    gpa should be(3.5)
   }
 
   /** Tuples items can be swapped on a Tuple 2
     */
   def swappedTuples(res0: Int, res1: String) {
     val tuple = ("apple", 3).swap
-    tuple._1 should be(res0)
-    tuple._2 should be(res1)
+    tuple._1 should be(3)
+    tuple._2 should be("apple")
   }
 
 }
