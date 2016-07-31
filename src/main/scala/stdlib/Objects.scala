@@ -20,10 +20,10 @@ object Objects extends FlatSpec with Matchers with org.scalaexercises.definition
       def magyar = "Szia"
     }
 
-    Greeting.english should be(res0)
-    Greeting.espanol should be(res1)
-    Greeting.deutsch should be(res2)
-    Greeting.magyar should be(res3)
+    Greeting.english should be("Hi")
+    Greeting.espanol should be("Hola")
+    Greeting.deutsch should be("hallo")
+    Greeting.magyar should be("Szia")
   }
 
   /** Here is a proof that an object is a singleton, and not a static method in a class
@@ -42,11 +42,11 @@ object Objects extends FlatSpec with Matchers with org.scalaexercises.definition
     val x = Greeting
     val y = x
 
-    x eq y should be(res0) //Reminder: eq checks for reference
+    x eq y should be(true) //Reminder: eq checks for reference
 
     val z = Greeting
 
-    x eq z should be(res1)
+    x eq z should be(true)
   }
 
   /** An object that has the same name as a class is called a companion object of the class, and it is often used to contain factory methods for the class that it complements.
@@ -66,7 +66,7 @@ object Objects extends FlatSpec with Matchers with org.scalaexercises.definition
       }
     }
 
-    Movie.academyAwardBestMoviesForYear(1932).get.name should be(res0)
+    Movie.academyAwardBestMoviesForYear(1932).get.name should be("Grand Hotel")
   }
 
   /** A companion object can also see private values and variables of the instantiated objects:
@@ -83,10 +83,10 @@ object Objects extends FlatSpec with Matchers with org.scalaexercises.definition
     val bruce = new Person("Bruce Wayne", "Batman")
     val diana = new Person("Diana Prince", "Wonder Woman")
 
-    Person.showMeInnerSecret(clark) should be(res0)
-    Person.showMeInnerSecret(peter) should be(res1)
-    Person.showMeInnerSecret(bruce) should be(res2)
-    Person.showMeInnerSecret(diana) should be(res3)
+    Person.showMeInnerSecret(clark) should be("Superman")
+    Person.showMeInnerSecret(peter) should be("Spiderman")
+    Person.showMeInnerSecret(bruce) should be("Batman")
+    Person.showMeInnerSecret(diana) should be("Wonder Woman")
   }
 
 }
