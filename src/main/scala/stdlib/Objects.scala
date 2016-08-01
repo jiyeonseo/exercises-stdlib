@@ -79,6 +79,7 @@ object Objects extends FlatSpec with Matchers with org.scalaexercises.definition
     }
 
     val clark = new Person("Clark Kent", "Superman")
+    // clark.superheroName // error cause this is private
     val peter = new Person("Peter Parker", "Spiderman")
     val bruce = new Person("Bruce Wayne", "Batman")
     val diana = new Person("Diana Prince", "Wonder Woman")
