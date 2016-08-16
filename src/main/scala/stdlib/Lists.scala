@@ -14,7 +14,7 @@ object Lists extends FlatSpec with Matchers with org.scalaexercises.definitions.
   def similarToArraysLists(res0: Boolean) {
     val a = List(1, 2, 3)
     val b = List(1, 2, 3)
-    (a eq b) should be(res0)
+    (a eq b) should be(false)
   }
 
   /** `==` tests equality (same content)
@@ -22,7 +22,7 @@ object Lists extends FlatSpec with Matchers with org.scalaexercises.definitions.
   def sameContentLists(res0: Boolean) {
     val a = List(1, 2, 3)
     val b = List(1, 2, 3)
-    (a == b) should be(res0)
+    (a == b) should be(true)
   }
 
   /** Nil lists are identical, even of different types
@@ -31,21 +31,21 @@ object Lists extends FlatSpec with Matchers with org.scalaexercises.definitions.
     val a: List[String] = Nil
     val b: List[Int] = Nil
 
-    (a == Nil) should be(res0)
-    (a eq Nil) should be(res1)
+    (a == Nil) should be(true)
+    (a eq Nil) should be(true)
 
-    (b == Nil) should be(res2)
-    (b eq Nil) should be(res3)
+    (b == Nil) should be(true)
+    (b eq Nil) should be(true)
 
-    (a == b) should be(res4)
-    (a eq b) should be(res5)
+    (a == b) should be(true)
+    (a eq b) should be(true)
   }
 
   /** Lists are easily created
     */
   def easilyCreatedLists(res0: Int, res1: Int, res2: Int) {
     val a = List(1, 2, 3)
-    a should equal(List(res0, res1, res2))
+    a should equal(List(3))
   }
 
   /** Lists can be accessed via head, headOption and tail.
@@ -53,17 +53,17 @@ object Lists extends FlatSpec with Matchers with org.scalaexercises.definitions.
     */
   def headAndTailLists(res0: Int, res1: Int, res2: Int) {
     val a = List(1, 2, 3)
-    a.headOption should equal(Option(res0))
-    a.tail should equal(List(res1, res2))
+    a.headOption should equal(Option(1))
+    a.tail should equal(List(2, 3))
   }
 
   /** Lists can be accessed by position
     */
   def byPositionLists(res0: Int, res1: Int, res2: Int) {
     val a = List(1, 3, 5, 7, 9)
-    a(0) should equal(res0)
-    a(2) should equal(res1)
-    a(4) should equal(res2)
+    a(0) should equal(1)
+    a(2) should equal(5)
+    a(4) should equal(9)
 
     intercept[IndexOutOfBoundsException] {
       println(a(5))
@@ -77,7 +77,7 @@ object Lists extends FlatSpec with Matchers with org.scalaexercises.definitions.
     val b = a.filterNot(v ⇒ v == 5) // remove where value is 5
 
     a should equal(List(1, 3, 5, 7, 9))
-    b should equal(List(res0, res1, res2, res3))
+    b should equal(List(1, 3, 7, 9))
   }
 
   /** Lists have many useful methods
@@ -86,16 +86,16 @@ object Lists extends FlatSpec with Matchers with org.scalaexercises.definitions.
     val a = List(1, 3, 5, 7, 9)
 
     // get the length of the list
-    a.length should equal(res0)
+    a.length should equal(5)
 
     // reverse the list
-    a.reverse should equal(res1)
+    a.reverse should equal(List(9,7,5,3,1))
 
     // map a function to double the numbers over the list
-    a.map { v ⇒ v * 2 } should equal(res2)
+    a.map { v ⇒ v * 2 } should equal(List(2,6,10,14,18))
 
     // filter any values divisible by 3 in the list
-    a.filter { v ⇒ v % 3 == 0 } should equal(res3)
+    a.filter { v ⇒ v % 3 == 0 } should equal(List(3,9))
   }
 
   /** Functions over lists can use _ as shorthand
@@ -105,27 +105,27 @@ object Lists extends FlatSpec with Matchers with org.scalaexercises.definitions.
 
     a.map {
       _ * 2
-    } should equal(List(res0, res1, res2))
+    } should equal(List(2, 4, 6))
 
     a.filter {
       _ % 2 == 0
-    } should equal(List(res3))
+    } should equal(List(2))
   }
 
   /** Functions over lists can use `()` instead of `{}`
     */
   def functionsOverListsLists(res0: Int, res1: Int, res2: Int, res3: Int, res4: Int) {
     val a = List(1, 2, 3)
-    a.map(_ * 2) should equal(List(res0, res1, res2))
-    a.filter(_ % 2 != 0) should equal(List(res3, res4))
+    a.map(_ * 2) should equal(List(2, 4, 6))
+    a.filter(_ % 2 != 0) should equal(List(1, 3))
   }
 
   /** Lists can be *reduced* with a mathematical operation
     */
   def reducingListsLists(res0: Int, res1: Int) {
     val a = List(1, 3, 5, 7)
-    a.reduceLeft(_ + _) should equal(res0)
-    a.reduceLeft(_ * _) should equal(res1)
+    a.reduceLeft(_ + _) should equal(16)
+    a.reduceLeft(_ * _) should equal(105)
   }
 
   /** Foldleft is like reduce, but with an explicit starting value
@@ -133,17 +133,17 @@ object Lists extends FlatSpec with Matchers with org.scalaexercises.definitions.
   def foldLeftLists(res0: Int, res1: Int, res2: Int, res3: Int) {
     val a = List(1, 3, 5, 7)
     // NOTE: foldLeft uses a form called currying that we will explore later
-    a.foldLeft(0)(_ + _) should equal(res0)
-    a.foldLeft(10)(_ + _) should equal(res1)
-    a.foldLeft(1)(_ * _) should equal(res2)
-    a.foldLeft(0)(_ * _) should equal(res3)
+    a.foldLeft(0)(_ + _) should equal(16)
+    a.foldLeft(10)(_ + _) should equal(26)
+    a.foldLeft(1)(_ * _) should equal(105)
+    a.foldLeft(0)(_ * _) should equal(0)
   }
 
   /** You can create a list from a range
     */
   def fromRangeLists(res0: List[Int]) {
     val a = (1 to 5).toList
-    a should be(res0)
+    a should be(List(1,2,3,4,5))
   }
 
   /** Lists reuse their tails
@@ -154,10 +154,10 @@ object Lists extends FlatSpec with Matchers with org.scalaexercises.definitions.
     val b = 2 :: c
     val a = 1 :: b
 
-    a should be(List(res0, res1, res2))
-    a.tail should be(res3)
-    b.tail should be(res4)
-    c.tail should be(res5)
+    a should be(List(1, 2, 3))
+    a.tail should be(List(2, 3))
+    b.tail should be(List(3))
+    c.tail should be(Nil)
   }
 
 }
