@@ -21,14 +21,14 @@ object Maps extends FlatSpec with Matchers with org.scalaexercises.definitions.S
     */
   def keyAndValueMaps(res0: Int) {
     val myMap = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "IA" → "Iowa")
-    myMap.size should be(res0)
+    myMap.size should be(4)
   }
 
   /** Maps contain distinct pairings:
     */
   def distinctPairingsMaps(res0: Int) {
     val myMap = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "MI" → "Michigan")
-    myMap.size should be(res0)
+    myMap.size should be(3)
   }
 
   /** Maps can be added to easily:
@@ -36,7 +36,7 @@ object Maps extends FlatSpec with Matchers with org.scalaexercises.definitions.S
   def easilyAddedMaps(res0: Boolean) {
     val myMap = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "MI" → "Michigan")
     val aNewMap = myMap + ("IL" → "Illinois")
-    aNewMap.contains("IL") should be(res0)
+    aNewMap.contains("IL") should be(true)
   }
 
   /** Map values can be iterated:
@@ -45,11 +45,11 @@ object Maps extends FlatSpec with Matchers with org.scalaexercises.definitions.S
     val myMap = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "MI" → "Michigan")
 
     val mapValues = myMap.values
-    mapValues.size should be(res0)
-    mapValues.head should be(res1) //Failed presumption: The order in maps is not guaranteed
+    mapValues.size should be(3)
+    mapValues.head should be("Michigan") //Failed presumption: The order in maps is not guaranteed
 
     val lastElement = mapValues.last
-    lastElement should be(res2) //Failed presumption: The order in maps is not guaranteed
+    lastElement should be("Wisconsin") //Failed presumption: The order in maps is not guaranteed
   }
 
   /** Maps insertion with duplicate key updates previous entry with subsequent value:
@@ -57,8 +57,8 @@ object Maps extends FlatSpec with Matchers with org.scalaexercises.definitions.S
   def duplicatedKeyInsertionMaps(res0: Int, res1: String) {
     val myMap = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "MI" → "Meechigan")
     val mapValues = myMap.values
-    mapValues.size should be(res0)
-    myMap("MI") should be(res1)
+    mapValues.size should be(3)
+    myMap("MI") should be("Meechigan")
 
   }
 
@@ -66,16 +66,16 @@ object Maps extends FlatSpec with Matchers with org.scalaexercises.definitions.S
     */
   def mixedTypeKeysMaps(res0: String, res1: String) {
     val myMap = Map("Ann Arbor" → "MI", 49931 → "MI")
-    myMap("Ann Arbor") should be(res0)
-    myMap(49931) should be(res1)
+    myMap("Ann Arbor") should be("MI")
+    myMap(49931) should be("MI")
   }
 
   /** Maps may be accessed:
     */
   def mayBeAccessedMaps(res0: String, res1: String) {
     val myMap = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "IA" → "Iowa")
-    myMap("MI") should be(res0)
-    myMap("IA") should be(res1)
+    myMap("MI") should be("Michigan")
+    myMap("IA") should be("Iowa")
   }
 
   /** If a map key is requested using myMap(missingKey) which does not exist a NoSuchElementException will be thrown.
@@ -86,10 +86,10 @@ object Maps extends FlatSpec with Matchers with org.scalaexercises.definitions.S
     intercept[NoSuchElementException] {
       myMap("TX")
     }
-    myMap.getOrElse("TX", "missing data") should be(res0)
+    myMap.getOrElse("TX", "missing data") should be("missing data")
 
     val myMap2 = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "IA" → "Iowa") withDefaultValue "missing data"
-    myMap2("TX") should be(res1)
+    myMap2("TX") should be("missing data")
   }
 
   /** Map elements can be removed easily:
@@ -97,8 +97,8 @@ object Maps extends FlatSpec with Matchers with org.scalaexercises.definitions.S
   def easilyRemovedMaps(res0: Boolean, res1: Boolean) {
     val myMap = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "IA" → "Iowa")
     val aNewMap = myMap - "MI"
-    aNewMap.contains("MI") should be(res0)
-    myMap.contains("MI") should be(res1)
+    aNewMap.contains("MI") should be(false)
+    myMap.contains("MI") should be(true)
   }
 
   /** Map elements can be removed in multiple:
@@ -107,12 +107,12 @@ object Maps extends FlatSpec with Matchers with org.scalaexercises.definitions.S
     val myMap = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "IA" → "Iowa")
     val aNewMap = myMap -- List("MI", "OH")
 
-    aNewMap.contains("MI") should be(res0)
-    myMap.contains("MI") should be(res1)
+    aNewMap.contains("MI") should be(false)
+    myMap.contains("MI") should be(true)
 
-    aNewMap.contains("WI") should be(res2)
-    aNewMap.size should be(res3)
-    myMap.size should be(res4)
+    aNewMap.contains("WI") should be(true)
+    aNewMap.size should be(2)
+    myMap.size should be(4)
   }
 
   /** Map elements can be removed with a tuple:
@@ -121,11 +121,11 @@ object Maps extends FlatSpec with Matchers with org.scalaexercises.definitions.S
     val myMap = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "IA" → "Iowa")
     val aNewMap = myMap - ("MI", "WI") // Notice: single '-' operator for tuples
 
-    aNewMap.contains("MI") should be(res0)
-    myMap.contains("MI") should be(res1)
-    aNewMap.contains("OH") should be(res2)
-    aNewMap.size should be(res3)
-    myMap.size should be(res4)
+    aNewMap.contains("MI") should be(false)
+    myMap.contains("MI") should be(true)
+    aNewMap.contains("OH") should be(true)
+    aNewMap.size should be(2)
+    myMap.size should be(4)
   }
 
   /** Attempted removal of nonexistent elements from a map is handled gracefully:
@@ -134,7 +134,7 @@ object Maps extends FlatSpec with Matchers with org.scalaexercises.definitions.S
     val myMap = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "IA" → "Iowa")
     val aNewMap = myMap - "MN"
 
-    aNewMap.equals(myMap) should be(res0)
+    aNewMap.equals(myMap) should be(true)
   }
 
   /** Map equivalency is independent of order:
@@ -143,7 +143,7 @@ object Maps extends FlatSpec with Matchers with org.scalaexercises.definitions.S
     val myMap1 = Map("MI" → "Michigan", "OH" → "Ohio", "WI" → "Wisconsin", "IA" → "Iowa")
     val myMap2 = Map("WI" → "Wisconsin", "MI" → "Michigan", "IA" → "Iowa", "OH" → "Ohio")
 
-    myMap1.equals(myMap2) should be(res0)
+    myMap1.equals(myMap2) should be(true)
   }
 
 }
