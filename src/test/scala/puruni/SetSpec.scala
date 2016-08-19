@@ -30,8 +30,6 @@ class SetSpec extends FunSuite with Matchers {
     println(set2.diff(set5))// 차집합
 
     // java6 switch문 string은 7부터 들어감
-    set5 match {
-      case a : scala.collection.immutable.Set =>
-    }
+
   }
 }
