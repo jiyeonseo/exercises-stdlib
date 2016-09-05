@@ -41,7 +41,7 @@ object PatternMatching extends FlatSpec with Matchers with org.scalaexercises.de
       case _ ⇒ println(stuff); 0 //case _ will trigger if all other cases fail.
     }
 
-    myStuff should be(res0)
+    myStuff should be(2)
   }
 
   /** Pattern matching can return complex somethings:
@@ -56,7 +56,7 @@ object PatternMatching extends FlatSpec with Matchers with org.scalaexercises.de
       case _       ⇒ println(stuff); 0
     }
 
-    myStuff should be(res0, res1, res2)
+    myStuff should be(0, 0, 255)
   }
 
   /** Pattern matching can match complex expressions:
@@ -69,7 +69,7 @@ object PatternMatching extends FlatSpec with Matchers with org.scalaexercises.de
       case _                    ⇒ "what?"
     }
 
-    goldilocks(("porridge", "Mama")) should be(res0)
+    goldilocks(("porridge", "Mama")) should be("Mama eating porridge")
   }
 
   /** Pattern matching can wildcard parts of expressions:
@@ -82,8 +82,8 @@ object PatternMatching extends FlatSpec with Matchers with org.scalaexercises.de
       case _                 ⇒ "what?"
     }
 
-    goldilocks(("porridge", "Papa")) should be(res0)
-    goldilocks(("chair", "Mama")) should be(res1)
+    goldilocks(("porridge", "Papa")) should be("eating")
+    goldilocks(("chair", "Mama")) should be("sitting")
   }
 
   /** Pattern matching can substitute parts of expressions:
@@ -96,8 +96,8 @@ object PatternMatching extends FlatSpec with Matchers with org.scalaexercises.de
       case _                  ⇒ "what?"
     }
 
-    goldilocks(("porridge", "Papa")) should be(res0)
-    goldilocks(("chair", "Mama")) should be(res1)
+    goldilocks(("porridge", "Papa")) should be("Papa said someone's been eating my porridge")
+    goldilocks(("chair", "Mama")) should be("Mama said someone's been sitting in my chair")
   }
 
   //TODO: Improve compiler to ignore regular expressions in the body of the exercise
@@ -134,10 +134,10 @@ object PatternMatching extends FlatSpec with Matchers with org.scalaexercises.de
       case _                 ⇒ "what?"
     }
 
-    goldilocks(("porridge", "Papa")) should be(res0)
-    goldilocks(("chair", "Mama")) should be(res1)
-    goldilocks(("porridge", "Cousin")) should be(res2)
-    goldilocks(("beer", "Cousin")) should be(res3)
+    goldilocks(("porridge", "Papa")) should be("eating")
+    goldilocks(("chair", "Mama")) should be("sitting")
+    goldilocks(("porridge", "Cousin")) should be("eating")
+    goldilocks(("beer", "Cousin")) should be("what?")
   }
 
   /** A backquote can be used to refer to a method parameter as a stable variable to create a case statement:
@@ -147,9 +147,9 @@ object PatternMatching extends FlatSpec with Matchers with org.scalaexercises.de
       case `i` ⇒ true
       case _   ⇒ false
     }
-    patternEquals(3, 3) should be(res0)
-    patternEquals(7, 9) should be(res1)
-    patternEquals(9, 9) should be(res2)
+    patternEquals(3, 3) should be(true)
+    patternEquals(7, 9) should be(false)
+    patternEquals(9, 9) should be(true)
   }
 
   /** To pattern match against a `List`, the list can be broken out into parts, in this case the head `x` and the tail `xs`. Since the case doesn't terminate in `Nil`, `xs` is interpreted as the rest of the list:
@@ -160,7 +160,7 @@ object PatternMatching extends FlatSpec with Matchers with org.scalaexercises.de
       case _       ⇒ 0
     }
 
-    secondElement should be(res0)
+    secondElement should be(2)
   }
 
   /** To obtain the second element you can expand on the pattern. Where `x` is the first element, `y` is the second element, and `xs` is the rest:
@@ -171,7 +171,7 @@ object PatternMatching extends FlatSpec with Matchers with org.scalaexercises.de
       case _            ⇒ 0
     }
 
-    secondElement should be(res0)
+    secondElement should be(2)
   }
 
   /** Same koan as above, but we are pattern matching a list with only one item!
@@ -182,7 +182,7 @@ object PatternMatching extends FlatSpec with Matchers with org.scalaexercises.de
       case _            ⇒ 0
     }
 
-    secondElement should be(res0)
+    secondElement should be(0)
   }
 
   /** To pattern match against `List`, you can also establish a pattern match if you know the exact number of elements in a `List`:
@@ -193,7 +193,7 @@ object PatternMatching extends FlatSpec with Matchers with org.scalaexercises.de
       case _             ⇒ 0
     }
 
-    r should be(res0)
+    r should be(0)
   }
 
 }
