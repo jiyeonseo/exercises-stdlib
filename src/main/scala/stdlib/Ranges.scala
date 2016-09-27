@@ -14,9 +14,9 @@ object Ranges extends FlatSpec with Matchers with org.scalaexercises.definitions
     val second = someNumbers(1)
     val last = someNumbers.last
 
-    someNumbers.size should be(res0)
-    second should be(res1)
-    last should be(res2)
+    someNumbers.size should be(10)
+    second should be(1)
+    last should be(9)
   }
 
   /** Ranges can be specified using 'until'.
@@ -25,7 +25,7 @@ object Ranges extends FlatSpec with Matchers with org.scalaexercises.definitions
     val someNumbers = Range(0, 10)
     val otherRange = 0 until 10
 
-    (someNumbers == otherRange) should be(res0)
+    (someNumbers == otherRange) should be(true)
   }
 
   /** Range can specify a step for an increment:
@@ -35,18 +35,18 @@ object Ranges extends FlatSpec with Matchers with org.scalaexercises.definitions
     val second = someNumbers(1)
     val last = someNumbers.last
 
-    someNumbers.size should be(res0)
-    second should be(res1)
-    last should be(res2)
+    someNumbers.size should be(3)
+    second should be(5)
+    last should be(8)
   }
 
   /** A range does not include its upper bound, even in a step increment:
     */
   def upperInIncrementRangeExercises(res0: Boolean, res1: Boolean, res2: Boolean) {
     val someNumbers = Range(0, 34, 2)
-    someNumbers.contains(33) should be(res0)
-    someNumbers.contains(32) should be(res1)
-    someNumbers.contains(34) should be(res2)
+    someNumbers.contains(33) should be(false)
+    someNumbers.contains(32) should be(true)
+    someNumbers.contains(34) should be(false)
   }
 
   /** Range can specify to include its upper bound value
@@ -54,7 +54,7 @@ object Ranges extends FlatSpec with Matchers with org.scalaexercises.definitions
   def specifyUpperRangeExercises(res0: Boolean) {
     val someNumbers = Range(0, 34).inclusive
 
-    someNumbers.contains(34) should be(res0)
+    someNumbers.contains(34) should be(true)
   }
 
   /** Inclusive ranges can be specified using 'to'.
@@ -63,7 +63,7 @@ object Ranges extends FlatSpec with Matchers with org.scalaexercises.definitions
     val someNumbers = Range(0, 34).inclusive
     val otherRange = 0 to 34
 
-    (someNumbers == otherRange) should be(res0)
+    (someNumbers == otherRange) should be(true)
 
     /** A Range is an ordered sequence of integers that are equally spaced apart. For example, "1, 2, 3," is a range, as is "5, 8, 11, 14." To create a range in Scala, use the predefined methods `to` and `by`. `1 to 3` generates `Range(1, 2, 3)` and `5 to 14 by 3` generates `Range(5, 8, 11, 14)`.
       *
