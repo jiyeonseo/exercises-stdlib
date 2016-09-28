@@ -26,8 +26,8 @@ object PartialFunctions extends FlatSpec with Matchers with org.scalaexercises.d
 
     val whatToDo = doubleEvens orElse tripleOdds //Here we chain the partial functions together
 
-    whatToDo(3) should be(res0)
-    whatToDo(4) should be(res1)
+    whatToDo(3) should be(9)
+    whatToDo(4) should be(8)
   }
 
   /** Case statements are a quick way to create partial functions. When you create a case statement, the `apply` and `isDefinedAt` is created for you.
@@ -42,8 +42,8 @@ object PartialFunctions extends FlatSpec with Matchers with org.scalaexercises.d
     }
 
     val whatToDo = doubleEvens orElse tripleOdds //Here we chain the partial functions together
-    whatToDo(3) should be(res0)
-    whatToDo(4) should be(res1)
+    whatToDo(3) should be(9)
+    whatToDo(4) should be(8)
   }
 
   /** The result of partial functions can have an `andThen` function added to the end of the chain
@@ -59,8 +59,8 @@ object PartialFunctions extends FlatSpec with Matchers with org.scalaexercises.d
 
     val addFive = (x: Int) ⇒ x + 5
     val whatToDo = doubleEvens orElse tripleOdds andThen addFive //Here we chain the partial functions together
-    whatToDo(3) should be(res0)
-    whatToDo(4) should be(res1)
+    whatToDo(3) should be(14)
+    whatToDo(4) should be(13)
   }
 
   /** The result of partial functions can have an `andThen` function added to the end of the chain used to continue onto another chain of logic:
@@ -82,8 +82,8 @@ object PartialFunctions extends FlatSpec with Matchers with org.scalaexercises.d
 
     val whatToDo = doubleEvens orElse tripleOdds andThen (printEven orElse printOdd)
 
-    whatToDo(3) should be(res0)
-    whatToDo(4) should be(res1)
+    whatToDo(3) should be("Odd")
+    whatToDo(4) should be("Even")
   }
 
 }
