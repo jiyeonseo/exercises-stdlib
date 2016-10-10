@@ -39,7 +39,7 @@ object Traits extends FlatSpec with Matchers with org.scalaexercises.definitions
 
     val evt = Event("Moose Stampede")
     val myListener = new MyListener
-    myListener.listen(evt) should be(res0)
+    myListener.listen(evt) should be("An unfortunate moose stampede occurred")
   }
 
   /** A class can only extend from one class or trait, any subsequent extension should use the keyword `with`:
@@ -64,7 +64,7 @@ object Traits extends FlatSpec with Matchers with org.scalaexercises.definitions
 
     val evt = Event("Woodchuck Stampede")
     val myListener = new MyListener
-    myListener.listen(evt) should be(res0)
+    myListener.listen(evt) should be("An unfortunate woodchuck stampede occurred")
   }
 
   /** Traits are polymorphic. Any type can be referred to by another type if related by extension:
@@ -87,10 +87,10 @@ object Traits extends FlatSpec with Matchers with org.scalaexercises.definitions
 
     val myListener = new MyListener
 
-    myListener.isInstanceOf[MyListener] should be(res0)
-    myListener.isInstanceOf[EventListener] should be(res1)
-    myListener.isInstanceOf[Any] should be(res2)
-    myListener.isInstanceOf[AnyRef] should be(res3)
+    myListener.isInstanceOf[MyListener] should be(true)
+    myListener.isInstanceOf[EventListener] should be(true)
+    myListener.isInstanceOf[Any] should be(true)
+    myListener.isInstanceOf[AnyRef] should be(true)
   }
 
 }
