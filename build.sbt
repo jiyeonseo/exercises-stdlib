@@ -4,14 +4,14 @@ lazy val stdlib = (project in file("."))
 .settings(
   organization := "org.scala-exercises",
   name         := "exercises-stdlib",
-  scalaVersion := "2.11.7",
+  scalaVersion := "2.11.8",
   version := "0.2.2-SNAPSHOT",
   resolvers ++= Seq(
     Resolver.sonatypeRepo("snapshots"),
     Resolver.sonatypeRepo("releases")
   ),
   libraryDependencies ++= Seq(
-    "com.chuusai" %% "shapeless" % "2.2.5",
+    "com.chuusai" %% "shapeless" % "2.3.2",
     "org.scalatest" %% "scalatest" % "2.2.4",
     "org.scala-exercises" %% "exercise-compiler" % version.value,
     "org.scala-exercises" %% "definitions" % version.value,

@@ -2,6 +2,8 @@ package puruni
 
 import org.scalatest.{FunSuite, Matchers}
 
+import scala.concurrent.{ExecutionContextExecutor, Future}
+
 /**
   * Created by jiyeon on 2016. 9. 28..
   */
@@ -93,6 +95,77 @@ class ImplicitSpec extends FunSuite with Matchers{
     println(a.toString) // 이런건 안먹네.
 
   }
+
+  /*
+    implicit 위치 4가지 :
+    - 함수의 파라미터
+    - 변수의 앞에
+    - class 앞에
+    - 함수 앞에
+   */
+
+//  case class Bar(a: String)
+//  case class Cheese(c: Int, b: Bar)
+//
+//  class Fooo(c: Cheese)(implicit bar:Bar) {
+//    def barbar(): String = {
+//      c.copy(b = bar).b.a
+//    }
+//  }
+//
+//  implicit class Fooo2(c: Cheese)(implicit bar:Bar) {
+//    def barbar(): String = {
+//      c.copy(b = bar).b.a
+//    }
+//  }
+//
+//  val cheese = Cheese(10, Bar("cheese"))
+
+
+  test("실전") {
+    // 1. 암묵적인 type casting
+    // edina
+    case class Suldina(edina:String)
+
+    case class Edina(sul: String)
+
+    implicit def eee(e:Edina) : Suldina = Suldina(e.sul)
+
+    val suldina : Suldina = Edina("isool")
+
+
+    // 2. 기존에 있는 class에 문법 추가하기
+
+    implicit class dd(a:Edina)  { // 클래스의 생성자의 타입이 중요!! 이걸 보고 implicit 을 결정
+       def name():String = a.sul
+    }
+      //      def bar:String= a + " " + a
+      //    }
+    val e1 = Edina("막걸리")
+    e1.name == "에디나"
+
+
+    // 3. 암묵적인 변수를 특정 클래스에 주입을 한다.
+    import scala.concurrent.ExecutionContext.Implicits.global
+//    implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
+//    val re: Future[ExecutionContextExecutor] = Future[Int](
+//      println(10);
+//      Thread.sleep(1000);
+//      val ee = 1+1;
+//    )(ec)
+//    val a = Future[Int](2)(ec)
+    val list = List[Int](2)
+    val future = Future[Int](2) // same with a.. apply에 들어가보면 두번쨰 인자에 implicit으로 ExecutionContext가 들어가 있음
+    // 만약 위에 implicit val ec 저걸 선언 안해주게 되면 import를 해줄수도 있다
+    val set = Set[Int](2)
+
+//    val fff = ???
+//    val rr = Future(fff)
+
+
+  }
+
+
 
 
 }
